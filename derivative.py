@@ -63,8 +63,7 @@ total_loss=physics_loss+bc_loss
 #Optimizer
 Optimizer=torch.optim.Adam(model.parameters(),lr=0.001)
 
-#Backpropagation
-total_loss.backward()
+
 
 
 
@@ -89,4 +88,23 @@ print("\nTotal_loss:", total_loss)
 
 print("\nModel Parameter", Optimizer)
 
+#clear old gradients 
+Optimizer.zero_grad()
+
+#Backpropagation
+total_loss.backward()
+
 print("\nGradient of First layer weight:",model.network[0].weight.grad)
+
+
+print("Weight before update:")
+print(model.network[0].weight)
+
+
+#Optimizer Update
+print("\nOptimizer update: ")
+Optimizer.step()
+
+print("weight after update:")
+print(model.network[0].weight)
+
